@@ -1,13 +1,15 @@
+import random
 from tkinter import *
 
 from PIL import Image, ImageTk
 
 
 class Player:
-    def __init__(self, name, canvas: Canvas):
+    def __init__(self, name, canvas: Canvas, root):
         self.name = name
         self.speed = 10
         self.canvas = canvas
+        self.root = root
 
         if self.name == "Jack":
             player_image = Image.open("player_idle.jpg")
@@ -47,10 +49,15 @@ class Player:
 
     def pressing(self, event):
         # Just for the enemy
-        if event.char == "a": self.move_left(event), print("enemy move.left = Call")
-        if event.char == "d": self.move_right(event), print("enemy move.right = Call")
-        if event.char == "w": self.move_up(event), print("enemy move.up = Call")
-        if event.char == "s": self.move_down(event), print("enemy move.down = Call")
+        if event.char == "a": self.move_left(event)
+        if event.char == "d": self.move_right(event)
+        if event.char == "w": self.move_up(event)
+        if event.char == "s": self.move_down(event)
+
+    def random_move(self):
+        print("Move left")
+        self.move_left(None)
+        self.root.after(1000, self.random_move)
 
     def set_speed(self, speed):
         self.speed = speed

@@ -1,6 +1,15 @@
 from tkinter import *
 from player import Player
 
+
+def update_timer(count: int):
+    if count >= 0:
+        root.after(1000, update_timer, count - 1)
+        print(count)
+    else:
+        enemy.random_move()
+
+
 root = Tk()
 
 # root.attributes("-fullscreen", True)
@@ -13,8 +22,8 @@ map.update()
 map.configure(width=container.winfo_width(), height=container.winfo_height(), bg="white")
 map.pack(fill="both", expand=True)
 
-jack = Player("Jack", map)
-enemy = Player("enemy", map)
+jack = Player("Jack", map, root)
+enemy = Player("enemy", map, root)
 
 root.bind("<Key>", enemy.pressing)
 
