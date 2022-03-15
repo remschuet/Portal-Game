@@ -5,14 +5,14 @@ from PIL import Image, ImageTk
 
 
 class Player:
-    def __init__(self, name, canvas: Canvas, root):
+    def __init__(self, name, canvas: Canvas, root, position_x: int, position_y: int):
         self.name = name
         self.speed = 10
         self.canvas = canvas
         self.root = root
 
-        self.position_x = 100
-        self.position_y = 100
+        self.position_x = position_x
+        self.position_y = position_y
 
         self.current_direction = 0
         self.current_steps = 0
@@ -22,7 +22,7 @@ class Player:
             player_image = Image.open("player_idle.jpg")
             resized_image = player_image.resize((80, 70), Image.ANTIALIAS)
             self.player_idle = ImageTk.PhotoImage(resized_image)
-            self.player_image = canvas.create_image(100, 100, anchor=NW, image=self.player_idle)
+            self.player_image = canvas.create_image(self.position_x, self.position_y, anchor=NW, image=self.player_idle)
             print("(", self.position_x, self.position_y, ")")
 
             player_image_left = Image.open("player_left.jpg")
@@ -41,7 +41,7 @@ class Player:
             player_image = Image.open("enemy_idle.jpg")
             resized_image = player_image.resize((80, 70), Image.ANTIALIAS)
             self.player_idle = ImageTk.PhotoImage(resized_image)
-            self.player_image = canvas.create_image(100, 100, anchor=NW, image=self.player_idle)
+            self.player_image = canvas.create_image(self.position_x, self.position_y, anchor=NW, image=self.player_idle)
 
             player_image_left = Image.open("enemy_left.jpg")
             resized_image_left = player_image_left.resize((80, 70), Image.ANTIALIAS)
@@ -55,16 +55,17 @@ class Player:
             resized_image_up = player_image_up.resize((80, 70), Image.ANTIALIAS)
             self.player_up = ImageTk.PhotoImage(resized_image_up)
 
-    def pressing(self, event):
-        # Just for the enemy
-        if event.char == "a": self.move_left(event)
-        if event.char == "d": self.move_right(event)
-        if event.char == "w": self.move_up(event)
-        if event.char == "s": self.move_down(event)
+    def print_position_x_y(self, event):
+        print("(", self.name, ":", self.position_x, self.position_y, ")")
+
+    def get_position_x_y(self, event):                                                                 # not optimal
+        position_x = self.position_x  # self.position = creation of the player
+        position_y = self.position_y
+        return position_x, position_y
 
     def random_move_direction(self):
         if self.current_steps == 0:
-            random.seed()       # reinitialise le module random
+            random.seed()  # reinitialise le module random
             self.current_direction = random.randint(1, 4)
             self.current_steps = random.randint(1, 8)
         else:
@@ -77,7 +78,7 @@ class Player:
         if direction == 3: self.move_up(None)
         if direction == 4: self.move_down(None)
 
-        # self.root.after(500, self.random_move_direction)
+        self.root.after(500, self.random_move_direction)
 
     def set_speed(self, speed):
         self.speed = speed
@@ -105,12 +106,12 @@ class Player:
         if move_direction == "down":
             new = self.position_y + self.speed
             self.position_y = new
-        print("(", self.name,":",self.position_x, self.position_y, ")")
+        # print("(", self.name,":",self.position_x, self.position_y, ")")
 
     def move_in_canvas(self, direction):
         if self.position_x > 200 and direction == "right":
             self.can_move_in_canvas = False
-        elif self.position_x < 0 and direction == "left":                   # Why elif and not if ??
+        elif self.position_x < 0 and direction == "left":  # Why elif and not if ??
             self.can_move_in_canvas = False
         elif self.position_y < 0 and direction == "up":
             self.can_move_in_canvas = False
@@ -147,6 +148,3 @@ class Player:
             self.canvas.move(self.player_image, 0, self.speed)
             self.update_image("down")
             self.new_position("down")
-
-
-
