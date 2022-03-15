@@ -1,5 +1,6 @@
 from tkinter import *
 from player import Player
+from PIL import Image, ImageTk
 
 
 def update_timer(count: int):
@@ -21,12 +22,16 @@ root = Tk()
 
 # root.attributes("-fullscreen", True)
 root.geometry("800x500")
+background_image = PhotoImage(file="background.png")
+
 
 container = Frame(root, bg="yellow")
 container.pack(expand=True, fill="both")
 map = Canvas(container)
 map.update()
-map.configure(width=container.winfo_width(), height=container.winfo_height(), bg="green")
+
+
+map.configure(width=container.winfo_width(), height=container.winfo_height())
 map.pack(fill="both", expand=True)
 
 jack = Player("Jack", map, root, position_x=150, position_y=150)
