@@ -7,7 +7,7 @@ def update_timer(count: int):
         root.after(1000, update_timer, count - 1)
         print(count)
     else:
-        enemy.random_move()
+        enemy.random_move_direction()
 
 
 root = Tk()
@@ -31,5 +31,7 @@ root.bind("<Left>", jack.move_left)
 root.bind("<Right>", jack.move_right)
 root.bind("<Up>", jack.move_up)
 root.bind("<Down>", jack.move_down)
+
+update_timer(1)
 
 root.mainloop()
