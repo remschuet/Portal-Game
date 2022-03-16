@@ -19,7 +19,7 @@ class Player:
         self.current_direction = 0
         self.current_steps = 0
 
-        prefix = str.lower(self.name)
+        prefix = str.lower(self.name)                                       # Don't understand how it work
         player_image = Image.open( prefix + "_idle.jpg")
         resized_image = player_image.resize((80, 70), Image.ANTIALIAS)
         self.player_idle = ImageTk.PhotoImage(resized_image)
@@ -44,7 +44,7 @@ class Player:
 
     def random_move_direction(self):
         if self.current_steps == 0:
-            random.seed()  # reinitialise le module random
+            random.seed()                       # reinitialise le module random
             self.current_direction = random.randint(1, 4)
             self.current_steps = random.randint(1, 8)
         else:

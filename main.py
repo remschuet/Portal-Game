@@ -14,19 +14,10 @@ def update_timer(count: int):
     root.after(1000, update_timer, count - 1)
 
 
-# def get_specific_position():                        # not optimal
-#     position_enemy = enemy.get_position_x_y(None)
-#     print("Position of enemy", position_enemy)
-#     position_jack = jack.get_position_x_y(None)
-#     print("Position of jack", position_jack)
-
-
 root = Tk()
 
 # root.attributes("-fullscreen", True)
 root.geometry("800x500")
-
-# background_image_png = PhotoImage(file="background.png")
 
 background_image_png = Image.open("background.png")
 
@@ -46,7 +37,6 @@ environment = Environment(map)
 jack = Player("Jack", map, environment, position_x=150, position_y=150)
 enemy = Player("enemy", map, environment, position_x=70, position_y=70)
 
-# get_specific_position()  # Take the position of player and enemy
 
 root.bind("1", enemy.print_position_x_y)
 root.bind("2", jack.print_position_x_y)
