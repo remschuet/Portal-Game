@@ -43,5 +43,17 @@ class Environment:
             self.enemy_position_x = position_x
             self.enemy_position_y = position_y
 
-        if self.jack_position_x == self.enemy_position_x:
-            print("Même position !")
+        all_top_jack_position_x = [self.jack_position_x, (self.jack_position_x + 10), (self.jack_position_x + 20),
+                                   (self.jack_position_x + 30), (self.jack_position_x + 40),
+                                   (self.jack_position_x + 50), (self.jack_position_x + 60),
+                                   (self.jack_position_x + 70), (self.jack_position_x + 80)]
+        print(f" the position top x jack is : {all_top_jack_position_x[:]}")
+
+        all_top_enemy_position_x = [self.enemy_position_x, (self.enemy_position_x + 10), (self.enemy_position_x + 20),
+                                    (self.enemy_position_x + 30), (self.enemy_position_x + 40),
+                                    (self.enemy_position_x + 50), (self.enemy_position_x + 60),
+                                    (self.enemy_position_x + 70), (self.enemy_position_x + 80)]
+        print(f" the position top x jack is : {all_top_enemy_position_x[:]}")
+
+        # if all_top_jack_position_x == all_top_enemy_position_x:
+        #     print("Même position !")
