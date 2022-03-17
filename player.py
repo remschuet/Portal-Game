@@ -76,14 +76,17 @@ class Player:
 
     def move(self, direction: str) -> bool:
         enable_move = False
-        print(f"{self.name} x={self.position_x} y={self.position_y} wants to move")
+        # print(f"{self.name} x={self.position_x} y={self.position_y} wants to move")
 
         if self.environment.can_move(self.position_x, self.position_y, direction, self.speed):
             (self.position_x, self.position_y) = self.environment.get_next_position(
                 self.position_x, self.position_y, direction, self.speed)
             self.update_image(direction)
             enable_move = True
+
             # Position in dictionary for every player
+            self.environment.get_postion_all_Player(self.name, self.position_x, self.position_y)
+
         else:
             print(f"{self.name} cannot move")
         return enable_move
