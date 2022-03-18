@@ -8,6 +8,8 @@ class Environment:
         self.jack_position_y = int
         self.enemy_position_x = int
         self.enemy_position_y = int
+        self.all_top_jack_position_x = []
+        self.all_top_enemy_position_x = []
 
     def can_move(self, position_x: int, position_y: int, direction: str, speed: int):
         return (position_x, position_y) != self.get_next_position(
@@ -34,26 +36,94 @@ class Environment:
         return position_x, position_y
 
     def get_postion_all_Player(self, name, position_x, position_y):
-        # print(f" the postion of {name}  is x={position_x} y={position_y}")
         if name == "Jack":
-            self.jack_position_x = position_x
-            self.jack_position_y = position_y
+            self.all_top_jack_position_x = [
+                                            # Top (x, y)
+                                            (position_x, position_y),
+                                            (position_x + 10, position_y),
+                                            (position_x + 20, position_y),
+                                            (position_x + 30, position_y),
+                                            (position_x + 40, position_y),
+                                            (position_x + 50, position_y),
+                                            (position_x + 60, position_y),
+                                            (position_x + 70, position_y),
+                                            (position_x + 80, position_y),
+                                            # Down
+                                            (position_x, position_y + 80),
+                                            (position_x + 10, position_y + 80),
+                                            (position_x + 20, position_y + 80),
+                                            (position_x + 30, position_y + 80),
+                                            (position_x + 40, position_y + 80),
+                                            (position_x + 50, position_y + 80),
+                                            (position_x + 60, position_y + 80),
+                                            (position_x + 70, position_y + 80),
+                                            # Left
+                                            (position_x, position_y + 10),
+                                            (position_x, position_y + 20),
+                                            (position_x, position_y + 30),
+                                            (position_x, position_y + 40),
+                                            (position_x, position_y + 50),
+                                            (position_x, position_y + 60),
+                                            (position_x, position_y + 70),
+                                            (position_x, position_y + 80),
+                                            # Right
+                                            (position_x + 80, position_y + 10),
+                                            (position_x + 80, position_y + 20),
+                                            (position_x + 80, position_y + 30),
+                                            (position_x + 80, position_y + 40),
+                                            (position_x + 80, position_y + 50),
+                                            (position_x + 80, position_y + 60),
+                                            (position_x + 80, position_y + 70),
+                                            (position_x + 80, position_y + 80),
+                                            ]
 
         elif name == "enemy":
-            self.enemy_position_x = position_x
-            self.enemy_position_y = position_y
+            self.all_top_enemy_position_x = [
+                                             (position_x, position_y),
+                                             (position_x + 10, position_y + 10),
+                                             (position_x + 20, position_y + 20),
+                                             (position_x + 30, position_y + 30),
+                                             (position_x + 40, position_y + 40),
+                                             (position_x + 50, position_y + 50),
+                                             (position_x + 60, position_y + 60),
+                                             (position_x + 70, position_y + 70),
+                                             (position_x + 80, position_y + 80),
+                                             (position_x, position_y + 80),
+                                             (position_x + 10, position_y + 80),
+                                             (position_x + 20, position_y + 80),
+                                             (position_x + 30, position_y + 80),
+                                             (position_x + 40, position_y + 80),
+                                             (position_x + 50, position_y + 80),
+                                             (position_x + 60, position_y + 80),
+                                             (position_x + 70, position_y + 80),
+                                             # Left
+                                             (position_x, position_y + 10),
+                                             (position_x, position_y + 20),
+                                             (position_x, position_y + 30),
+                                             (position_x, position_y + 40),
+                                             (position_x, position_y + 50),
+                                             (position_x, position_y + 60),
+                                             (position_x, position_y + 70),
+                                             (position_x, position_y + 80),
+                                             # Right
+                                             (position_x + 80, position_y + 10),
+                                             (position_x + 80, position_y + 20),
+                                             (position_x + 80, position_y + 30),
+                                             (position_x + 80, position_y + 40),
+                                             (position_x + 80, position_y + 50),
+                                             (position_x + 80, position_y + 60),
+                                             (position_x + 80, position_y + 70),
+                                             (position_x + 80, position_y + 80),
+                                             ]
 
-        all_top_jack_position_x = [self.jack_position_x, (self.jack_position_x + 10), (self.jack_position_x + 20),
-                                   (self.jack_position_x + 30), (self.jack_position_x + 40),
-                                   (self.jack_position_x + 50), (self.jack_position_x + 60),
-                                   (self.jack_position_x + 70), (self.jack_position_x + 80)]
-        print(f" the position top x jack is : {all_top_jack_position_x[:]}")
+        same_position = []
 
-        all_top_enemy_position_x = [self.enemy_position_x, (self.enemy_position_x + 10), (self.enemy_position_x + 20),
-                                    (self.enemy_position_x + 30), (self.enemy_position_x + 40),
-                                    (self.enemy_position_x + 50), (self.enemy_position_x + 60),
-                                    (self.enemy_position_x + 70), (self.enemy_position_x + 80)]
-        print(f" the position top x jack is : {all_top_enemy_position_x[:]}")
+        for position in self.all_top_jack_position_x:
+            if position in self.all_top_enemy_position_x:
+                same_position.append(position)
 
-        # if all_top_jack_position_x == all_top_enemy_position_x:
-        #     print("Même position !")
+        if same_position:
+            print("Same position : ", position)
+            same_position.clear()
+        else:
+            pass
