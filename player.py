@@ -19,8 +19,8 @@ class Player:
         self.current_direction = 0
         self.current_steps = 0
 
-        prefix = str.lower(self.name)                                       # Don't understand how it work
-        player_image = Image.open( prefix + "_idle.jpg")
+        prefix = str.lower(self.name)
+        player_image = Image.open(prefix + "_idle.jpg")
         resized_image = player_image.resize((80, 70), Image.ANTIALIAS)
         self.player_idle = ImageTk.PhotoImage(resized_image)
         self.player_image = canvas.create_image(self.position_x, self.position_y,
@@ -85,7 +85,8 @@ class Player:
             enable_move = True
 
             # Position in dictionary for every player
-            self.environment.get_postion_all_Player(self.name, self.position_x, self.position_y)
+            self.environment.check_player_collision(self.name, self.position_x, self.position_y)
+            # self.environment.set_player_positon(self.name, self.position_x, self.position_y)
 
         else:
             print(f"{self.name} cannot move")
