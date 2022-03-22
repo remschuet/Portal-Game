@@ -19,6 +19,8 @@ class Player:
         self.current_direction = 0
         self.current_steps = 0
 
+        self.environment.set_position_player(self.name, self.position_x, self.position_y)
+
         prefix = str.lower(self.name)
         player_image = Image.open(prefix + "_idle.jpg")
         resized_image = player_image.resize((80, 70), Image.ANTIALIAS)
@@ -76,7 +78,6 @@ class Player:
 
     def move(self, direction: str) -> bool:
         enable_move = False
-        # print(f"{self.name} x={self.position_x} y={self.position_y} wants to move")
 
         if self.environment.can_move(self.position_x, self.position_y, direction, self.speed):
             (self.position_x, self.position_y) = self.environment.get_next_position(
@@ -85,8 +86,8 @@ class Player:
             enable_move = True
 
             # Position in dictionary for every player
-            self.environment.check_player_collision(self.name, self.position_x, self.position_y)
-            # self.environment.set_player_positon(self.name, self.position_x, self.position_y)
+            self.environment.is_collision_detected(self.name, self.position_x, self.position_y)
+            self.environment.set_position_player(self.name, self.position_x, self.position_y)
 
         else:
             print(f"{self.name} cannot move")
