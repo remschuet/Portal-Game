@@ -1,4 +1,3 @@
-import random
 from tkinter import *
 
 from PIL import Image, ImageTk
@@ -43,15 +42,6 @@ class Player:
 
     def print_position_x_y(self, _):
         print("(", self.name, ":", self.position_x, self.position_y, ")")
-
-    def random_move_direction(self):
-        if self.current_steps == 0:
-            random.seed()                       # reinitialise le module random
-            self.current_direction = random.randint(1, 4)
-            self.current_steps = random.randint(1, 8)
-        else:
-            self.current_steps -= 1
-        self.random_move_length(direction=self.current_direction)
 
     def random_move_length(self, direction: int):
         if direction == 1:

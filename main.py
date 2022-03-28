@@ -2,6 +2,7 @@ from tkinter import *
 
 from PIL import Image, ImageTk
 
+from enemy import Enemy
 from environment import Environment
 from player import Player
 
@@ -26,17 +27,16 @@ background_image = ImageTk.PhotoImage(background_resized_image)
 
 container = Frame(root, bg="yellow")
 container.pack(expand=True, fill="both")
-map = Canvas(container)
-map.update()
+map_canvas = Canvas(container)
+map_canvas.update()
 
-map.configure(width=container.winfo_width(), height=container.winfo_height())
-map.pack(fill="both", expand=True)
-map.create_image(0, 0, image=background_image, anchor="nw")
+map_canvas.configure(width=container.winfo_width(), height=container.winfo_height())
+map_canvas.pack(fill="both", expand=True)
+map_canvas.create_image(0, 0, image=background_image, anchor="nw")
 
-environment = Environment(map)
-jack = Player("Jack", map, environment, position_x=150, position_y=150)
-enemy = Player("enemy", map, environment, position_x=70, position_y=70)
-
+environment = Environment(map_canvas)
+jack = Player("Jack", map_canvas, environment, position_x=150, position_y=150)
+enemy = Enemy("enemy", map_canvas, environment, position_x=70, position_y=70)
 
 root.bind("1", enemy.print_position_x_y)
 root.bind("2", jack.print_position_x_y)

@@ -4,8 +4,8 @@ from tkinter import Canvas
 class Environment:
     def __init__(self, fight_map: Canvas):
 
-        self.length = 70        # longueur
-        self.height = 60        # hauteur
+        self.length = 70  # longueur
+        self.height = 60  # hauteur
 
         self.players = {}
 
