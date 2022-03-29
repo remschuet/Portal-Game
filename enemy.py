@@ -17,3 +17,13 @@ class Enemy(Player):
         else:
             self.current_steps -= 1
         self.random_move_length(direction=self.current_direction)
+
+    def random_move_length(self, direction: int):
+        if direction == 1:
+            self.move_left(None)
+        if direction == 2:
+            self.move_right(None)
+        if direction == 3:
+            self.move_up(None)
+        if direction == 4:
+            self.move_down(None)

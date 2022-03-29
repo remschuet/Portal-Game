@@ -43,16 +43,6 @@ class Player:
     def print_position_x_y(self, _):
         print("(", self.name, ":", self.position_x, self.position_y, ")")
 
-    def random_move_length(self, direction: int):
-        if direction == 1:
-            self.move_left(None)
-        if direction == 2:
-            self.move_right(None)
-        if direction == 3:
-            self.move_up(None)
-        if direction == 4:
-            self.move_down(None)
-
     def set_speed(self, speed):
         self.speed = speed
 

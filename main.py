@@ -1,10 +1,9 @@
 from tkinter import *
 
-from PIL import Image, ImageTk
-
 from enemy import Enemy
 from environment import Environment
 from player import Player
+from container_canvas import ContainerCanvas
 
 
 def update_timer(count: int):
@@ -20,19 +19,8 @@ root = Tk()
 # root.attributes("-fullscreen", True)
 root.geometry("800x500")
 
-background_image_png = Image.open("background.png")
-
-background_resized_image = background_image_png.resize((2000, 2000), Image.ANTIALIAS)
-background_image = ImageTk.PhotoImage(background_resized_image)
-
-container = Frame(root, bg="yellow")
-container.pack(expand=True, fill="both")
-map_canvas = Canvas(container)
-map_canvas.update()
-
-map_canvas.configure(width=container.winfo_width(), height=container.winfo_height())
-map_canvas.pack(fill="both", expand=True)
-map_canvas.create_image(0, 0, image=background_image, anchor="nw")
+management_map = ContainerCanvas(root)
+map_canvas = management_map.get_map_canvas()
 
 environment = Environment(map_canvas)
 jack = Player("Jack", map_canvas, environment, position_x=150, position_y=150)
