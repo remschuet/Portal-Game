@@ -11,6 +11,7 @@ class ContainerCanvas:
 
         self.map_canvas_level_01 = False
         self.map_canvas_main_menu = True
+        self.map_canvas_option_menu = False
 
         self.container = Frame(self.root, bg="yellow")
         self.container.pack(expand=True, fill="both")
@@ -22,8 +23,6 @@ class ContainerCanvas:
 
     def verify_which_canvas(self):
         if self.map_canvas_level_01:
-            print("bob")
-
             environment = Environment(self.map_canvas)
             jack = Player("Jack", self.map_canvas, environment, position_x=150, position_y=150)
             enemy = Enemy("enemy", self.map_canvas, environment, position_x=70, position_y=70)
@@ -44,8 +43,6 @@ class ContainerCanvas:
             self.map_canvas.pack(fill="both", expand=True)
             self.map_canvas.create_image(0, 0, image=self.background_image, anchor="nw")
 
-            self.start_button.destroy()
-
         elif self.map_canvas_main_menu:
 
             background_image_png = Image.open("menu.png")
@@ -56,13 +53,24 @@ class ContainerCanvas:
             self.map_canvas.pack(fill="both", expand=True)
             self.map_canvas.create_image(-100, 0, image=self.background_image, anchor="nw")
 
-            background_image_menu = Image.open("button_start_menu.png")
-            menu_resized_image = background_image_menu.resize((120, 70), Image.ANTIALIAS)
+            start_image_menu = Image.open("button_start_menu.png")
+            menu_resized_image = start_image_menu.resize((120, 70), Image.ANTIALIAS)
             self.start_button_img = ImageTk.PhotoImage(menu_resized_image)
 
-            self.start_button = Button(self.map_canvas, image=self.start_button_img, borderwidth=0,
-                                       command=lambda: self.press_start())
-            self.start_button.place(x=340, y=160)
+            option_image_menu = Image.open("button_option_menu.png")
+            menu_option_resized_image = option_image_menu.resize((120, 70), Image.ANTIALIAS)
+            self.option_button_img = ImageTk.PhotoImage(menu_option_resized_image)
+
+            start_button = Button(self.map_canvas, image=self.start_button_img, borderwidth=0,
+                                  command=lambda: self.press_start())
+            start_button.place(x=340, y=160)
+
+            option_button = Button(self.map_canvas, image=self.option_button_img, borderwidth=0,
+                                   command=lambda: self.press_option())
+            option_button.place(x=340, y=250)
+
+        elif self.map_canvas_option_menu:
+            print("We are in map canvas option")
 
     def get_map_canvas(self):
         return self.map_canvas
@@ -77,3 +85,10 @@ class ContainerCanvas:
         self.verify_which_canvas()
 
         return self.map_canvas_main_menu, self.map_canvas_level_01
+
+    def press_option(self):
+        self.map_canvas_main_menu = False
+        self.map_canvas_level_01 = False
+        self.map_canvas_option_menu = True
+        print("Press Options !")
+        self.verify_which_canvas()
