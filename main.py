@@ -1,11 +1,10 @@
 from tkinter import *
 
-from enemy import Enemy
-from environment import Environment
-from player import Player
+# from enemy import Enemy
+# from environment import Environment
+# from player import Player
 from container_canvas import ContainerCanvas
 
-#
 # def update_timer(count: int):
 #     if count >= 0:
 #         print(count)
@@ -40,7 +39,7 @@ map_canvas_level_01, map_canvas_main_menu = management_map.get_bool_map_canvas()
 #    root.bind("<Down>", jack.move_down)
 
 #     update_timer(1)
-#
+
 # elif map_canvas_main_menu:
 #     jack = None
 #     enemy = None
