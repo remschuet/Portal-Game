@@ -24,6 +24,7 @@ class ContainerCanvas:
     def verify_which_canvas(self):
         if self.map_canvas_level_01:
             environment = Environment(self.map_canvas)
+
             jack = Player("Jack", self.map_canvas, environment, position_x=150, position_y=150)
             enemy = Enemy("enemy", self.map_canvas, environment, position_x=70, position_y=70)
 
@@ -65,12 +66,26 @@ class ContainerCanvas:
                                   command=lambda: self.press_start())
             start_button.place(x=340, y=160)
 
-            option_button = Button(self.map_canvas, image=self.option_button_img, borderwidth=0,
-                                   command=lambda: self.press_option())
-            option_button.place(x=340, y=250)
+            option_button = Button(self.map_canvas, image=self.option_button_img, borderwidth=0, state=NORMAL,
+                                   command=lambda: self.press_option("to option"))
+            option_button.pack(side=BOTTOM, pady=180)
 
         elif self.map_canvas_option_menu:
-            print("We are in map canvas option")
+            background_image_png = Image.open("option.png")
+            background_resized_image = background_image_png.resize((1000, 1000), Image.ANTIALIAS)
+            self.background_image = ImageTk.PhotoImage(background_resized_image)
+
+            self.map_canvas.configure(width=self.container.winfo_width(), height=self.container.winfo_height())
+            self.map_canvas.pack(fill="both", expand=True)
+            self.map_canvas.create_image(-100, 0, image=self.background_image, anchor="nw")
+
+            option_image_menu = Image.open("button_option_option.png")
+            menu_option_resized_image = option_image_menu.resize((120, 70), Image.ANTIALIAS)
+            self.option_button_img = ImageTk.PhotoImage(menu_option_resized_image)
+
+            option_button = Button(self.map_canvas, image=self.option_button_img, borderwidth=0,
+                                   command=lambda: self.press_option("to menu"))
+            option_button.place(x=340, y=250)
 
     def get_map_canvas(self):
         return self.map_canvas
@@ -86,9 +101,13 @@ class ContainerCanvas:
 
         return self.map_canvas_main_menu, self.map_canvas_level_01
 
-    def press_option(self):
-        self.map_canvas_main_menu = False
-        self.map_canvas_level_01 = False
-        self.map_canvas_option_menu = True
-        print("Press Options !")
+    def press_option(self, direction):
+        if direction == "to menu":
+            self.map_canvas_main_menu = True
+            self.map_canvas_level_01 = False
+            self.map_canvas_option_menu = False
+        elif direction == "to option":
+            self.map_canvas_main_menu = False
+            self.map_canvas_level_01 = False
+            self.map_canvas_option_menu = True
         self.verify_which_canvas()
