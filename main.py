@@ -20,8 +20,6 @@ root.geometry("800x500")
 
 management_map = ContainerCanvas(root)
 
-map_canvas_level_01, map_canvas_main_menu = management_map.get_bool_map_canvas()
-
 # if map_canvas_level_01:
 #    useless
 #    map_canvas = management_map.get_map_canvas()

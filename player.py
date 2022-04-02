@@ -24,8 +24,8 @@ class Player:
         player_image = Image.open(prefix + "_idle.jpg")
         resized_image = player_image.resize((80, 70), Image.ANTIALIAS)
         self.player_idle = ImageTk.PhotoImage(resized_image)
-        self.player_image = canvas.create_image(self.position_x, self.position_y,
-                                                anchor=NW, image=self.player_idle)
+        self.player_image = self.canvas.create_image(self.position_x, self.position_y,
+                                                     anchor=NW, image=self.player_idle)
         print("(", self.position_x, self.position_y, ")")
 
         player_image_left = Image.open(prefix + "_left.jpg")
