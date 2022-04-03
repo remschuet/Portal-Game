@@ -1,8 +1,6 @@
-from tkinter import Canvas
-
 
 class Environment:
-    def __init__(self, fight_map: Canvas):
+    def __init__(self):
 
         self.length = 70  # longueur
         self.height = 60  # hauteur
@@ -39,6 +37,7 @@ class Environment:
 
     def is_collision_detected(self, name: str, position_x: int, position_y: int):
         for player_name, (x, y) in self.players.items():
+
             if name != player_name:
                 if position_x + self.height >= x and \
                         position_x <= x + self.height and \
@@ -47,3 +46,5 @@ class Environment:
                     print(f" {name} en collision avec  {player_name}")
                     return True
         return False
+
+

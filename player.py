@@ -2,7 +2,7 @@ from tkinter import *
 
 from PIL import Image, ImageTk
 
-from environment import Environment
+from collision_manager import Environment
 
 
 class Player:

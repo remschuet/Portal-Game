@@ -1,7 +1,7 @@
 from tkinter import *
 from PIL import Image, ImageTk
 from player import Player
-from environment import Environment
+from collision_manager import Environment
 from enemy import Enemy
 
 
@@ -11,15 +11,17 @@ class ContainerCanvas:
 
         self.map_canvas_level_01 = False
         self.map_canvas_main_menu = True
+
         self.container = Frame(self.root, bg="yellow")
         self.container.pack(expand=True, fill="both")
+
         self.map_canvas = None
         self.jack = None
         self.enemy = None
 
         self.enable_canvas("menu")
 
-    def enable_canvas(self, canvas_name:str):
+    def enable_canvas(self, canvas_name: str):
         if self.map_canvas:
             self.map_canvas.forget()
 
@@ -27,7 +29,7 @@ class ContainerCanvas:
             self.map_canvas = Canvas(self.container)
             self.map_canvas.update()
 
-            environment = Environment(self.map_canvas)
+            environment = Environment()
 
             background_image_png = Image.open("background.png")
             background_resized_menu = background_image_png.resize((2000, 2000), Image.ANTIALIAS)
@@ -36,7 +38,6 @@ class ContainerCanvas:
             self.map_canvas.configure(width=self.container.winfo_width(), height=self.container.winfo_height())
             self.map_canvas.pack(fill="both", expand=True)
             self.map_canvas.create_image(0, 0, image=self.background_image_game, anchor="nw")
-
 
             self.jack = Player("Jack", self.map_canvas, environment, position_x=150, position_y=150)
             self.enemy = Enemy("enemy", self.map_canvas, environment, position_x=70, position_y=70)
@@ -82,7 +83,7 @@ class ContainerCanvas:
 
     def update_timer(self, count: int):
         if count >= 0:
-             print(count)
+            print(count)
         else:
             self.enemy.random_move_direction()
         self.root.after(1000, self.update_timer, count - 1)
