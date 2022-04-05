@@ -28,61 +28,70 @@ class ContainerCanvas:
             self.map_canvas.forget()
 
         if canvas_name == "level01":
-            self.map_canvas = Canvas(self.container)
-            self.map_canvas.update()
+            self.load_canvas_level01()
+        elif canvas_name == "menu":
+            self.load_canvas_menu()
 
-            environment = Environment()
+    def load_canvas_level01(self):
+        self.map_canvas = Canvas(self.container)
+        self.map_canvas.update()
 
-            background_image_png = Image.open("background.png")
-            background_resized_menu = background_image_png.resize((2000, 2000), Image.ANTIALIAS)
-            self.background_image_game = ImageTk.PhotoImage(background_resized_menu)
+        environment = Environment()
+        self.image_manager()
 
-            self.map_canvas.configure(width=self.container.winfo_width(), height=self.container.winfo_height())
-            self.map_canvas.pack(fill="both", expand=True)
-            self.map_canvas.create_image(0, 0, image=self.background_image_game, anchor="nw")
+        self.map_canvas.configure(width=self.container.winfo_width(), height=self.container.winfo_height())
+        self.map_canvas.pack(fill="both", expand=True)
+        self.map_canvas.create_image(0, 0, image=self.background_image_game, anchor="nw")
 
-            self.jack = Player("Jack", self.map_canvas, environment, position_x=150, position_y=150, pv=10)
-            self.enemy = Enemy("enemy", self.map_canvas, environment, position_x=70, position_y=70, pv=10)
+        self.jack = Player("Jack", self.map_canvas, environment, position_x=150, position_y=150, pv=10)
+        self.enemy = Enemy("enemy", self.map_canvas, environment, position_x=70, position_y=70, pv=10)
 
-            self.root.bind("1", self.enemy.print_position_x_y)
-            self.root.bind("2", self.jack.print_position_x_y)
+        self.root.bind("1", self.enemy.print_position_x_y)
+        self.root.bind("2", self.jack.print_position_x_y)
 
-            self.root.bind("<Left>", self.jack.move_left)
-            self.root.bind("<Right>", self.jack.move_right)
-            self.root.bind("<Up>", self.jack.move_up)
-            self.root.bind("<Down>", self.jack.move_down)
+        self.root.bind("<Left>", self.jack.move_left)
+        self.root.bind("<Right>", self.jack.move_right)
+        self.root.bind("<Up>", self.jack.move_up)
+        self.root.bind("<Down>", self.jack.move_down)
 
-            self.main_timer_level01(1)
-            self.update_timer(1)
+        self.main_timer_level01(1)
+        self.update_timer(1)
 
-        if canvas_name == "menu":
-            self.map_canvas = Canvas(self.container)
-            self.map_canvas.update()
+    def load_canvas_menu(self):
+        self.map_canvas = Canvas(self.container)
+        self.map_canvas.update()
 
-            background_image_menu = Image.open("menu.png")
-            background_resized_menu = background_image_menu.resize((1000, 1000), Image.ANTIALIAS)
-            self.background_image_menu = ImageTk.PhotoImage(background_resized_menu)
+        self.image_manager()
 
-            self.map_canvas.configure(width=self.container.winfo_width(), height=self.container.winfo_height())
-            self.map_canvas.pack(fill="both", expand=True)
-            self.map_canvas.create_image(-100, 0, image=self.background_image_menu, anchor="nw")
+        self.map_canvas.configure(width=self.container.winfo_width(), height=self.container.winfo_height())
+        self.map_canvas.pack(fill="both", expand=True)
+        self.map_canvas.create_image(-100, 0, image=self.background_image_menu, anchor="nw")
 
-            start_image_menu = Image.open("button_start_menu.png")
-            menu_resized_image = start_image_menu.resize((120, 70), Image.ANTIALIAS)
-            self.start_button_img = ImageTk.PhotoImage(menu_resized_image)
+        start_button = Button(self.map_canvas, image=self.start_button_img, borderwidth=0,
+                              command=lambda:
+                              [start_button.destroy(), option_button.destroy(), self.start_level01()])
+        start_button.place(x=340, y=160)
 
-            option_image_menu = Image.open("button_option_menu.png")
-            menu_option_resized_image = option_image_menu.resize((120, 70), Image.ANTIALIAS)
-            self.option_button_img = ImageTk.PhotoImage(menu_option_resized_image)
+        option_button = Button(self.map_canvas, image=self.option_button_img, borderwidth=0, state=NORMAL,
+                               command=lambda: None)
+        option_button.pack(side=BOTTOM, pady=180)
 
-            start_button = Button(self.map_canvas, image=self.start_button_img, borderwidth=0,
-                                  command=lambda:
-                                  [start_button.destroy(), option_button.destroy(), self.start_level01()])
-            start_button.place(x=340, y=160)
+    def image_manager(self):
+        background_image_png = Image.open("background.png")
+        background_resized_menu = background_image_png.resize((2000, 2000), Image.ANTIALIAS)
+        self.background_image_game = ImageTk.PhotoImage(background_resized_menu)
 
-            option_button = Button(self.map_canvas, image=self.option_button_img, borderwidth=0, state=NORMAL,
-                                   command=lambda: None)
-            option_button.pack(side=BOTTOM, pady=180)
+        background_image_menu = Image.open("menu.png")
+        background_resized_menu = background_image_menu.resize((1000, 1000), Image.ANTIALIAS)
+        self.background_image_menu = ImageTk.PhotoImage(background_resized_menu)
+
+        start_image_menu = Image.open("button_start_menu.png")
+        menu_resized_image = start_image_menu.resize((120, 70), Image.ANTIALIAS)
+        self.start_button_img = ImageTk.PhotoImage(menu_resized_image)
+
+        option_image_menu = Image.open("button_option_menu.png")
+        menu_option_resized_image = option_image_menu.resize((120, 70), Image.ANTIALIAS)
+        self.option_button_img = ImageTk.PhotoImage(menu_option_resized_image)
 
     def main_timer_level01(self, count):
         if self.jack.pv <= 0 or self.enemy.pv <= 0:

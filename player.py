@@ -73,6 +73,8 @@ class Player:
 
         else:
             print(f"{self.name} cannot move")
+            if self.name != "Jack":
+                print("HAAAAA JE PEUX PAS BOUGER")
         return enable_move
 
     def move_right(self, _):
