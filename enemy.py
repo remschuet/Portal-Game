@@ -6,8 +6,8 @@ from player import Player
 
 
 class Enemy(Player):
-    def __init__(self, name, canvas: Canvas, environment: Environment, position_x: int, position_y: int):
-        super().__init__(name, canvas, environment, position_x, position_y)
+    def __init__(self, name, canvas: Canvas, environment: Environment, position_x: int, position_y: int, pv: int):
+        super().__init__(name, canvas, environment, position_x, position_y, pv)
 
     def random_move_direction(self):
         if self.current_steps == 0:

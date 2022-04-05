@@ -6,14 +6,14 @@ from collision_manager import Environment
 
 
 class Player:
-    def __init__(self, name, canvas: Canvas, environment: Environment, position_x: int, position_y: int):
+    def __init__(self, name, canvas: Canvas, environment: Environment, position_x: int, position_y: int, pv: int):
         self.name = name
         self.speed = 10
         self.canvas = canvas
         self.environment = environment
-
         self.position_x = position_x
         self.position_y = position_y
+        self.pv = pv
 
         self.current_direction = 0
         self.current_steps = 0
@@ -66,7 +66,9 @@ class Player:
             enable_move = True
 
             # Position in dictionary for every player
-            self.environment.is_collision_detected(self.name, self.position_x, self.position_y)
+            if self.environment.is_collision_detected(self.name, self.position_x, self.position_y):
+                self.pv = 0
+            # print the position of players
             self.environment.set_position_player(self.name, self.position_x, self.position_y)
 
         else:

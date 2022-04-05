@@ -46,5 +46,3 @@ class Environment:
                     print(f" {name} en collision avec  {player_name}")
                     return True
         return False
-
-

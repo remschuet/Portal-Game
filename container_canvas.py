@@ -9,15 +9,17 @@ class ContainerCanvas:
     def __init__(self, root):
         self.root = root
 
-        self.map_canvas_level_01 = False
-        self.map_canvas_main_menu = True
-
         self.container = Frame(self.root, bg="yellow")
         self.container.pack(expand=True, fill="both")
 
         self.map_canvas = None
         self.jack = None
         self.enemy = None
+
+        self.background_image_game = None
+        self.background_image_menu = None
+        self.start_button_img = None
+        self.option_button_img = None
 
         self.enable_canvas("menu")
 
@@ -39,8 +41,8 @@ class ContainerCanvas:
             self.map_canvas.pack(fill="both", expand=True)
             self.map_canvas.create_image(0, 0, image=self.background_image_game, anchor="nw")
 
-            self.jack = Player("Jack", self.map_canvas, environment, position_x=150, position_y=150)
-            self.enemy = Enemy("enemy", self.map_canvas, environment, position_x=70, position_y=70)
+            self.jack = Player("Jack", self.map_canvas, environment, position_x=150, position_y=150, pv=10)
+            self.enemy = Enemy("enemy", self.map_canvas, environment, position_x=70, position_y=70, pv=10)
 
             self.root.bind("1", self.enemy.print_position_x_y)
             self.root.bind("2", self.jack.print_position_x_y)
@@ -50,10 +52,10 @@ class ContainerCanvas:
             self.root.bind("<Up>", self.jack.move_up)
             self.root.bind("<Down>", self.jack.move_down)
 
+            self.main_timer_level01(1)
             self.update_timer(1)
 
-        elif self.map_canvas_main_menu:
-
+        if canvas_name == "menu":
             self.map_canvas = Canvas(self.container)
             self.map_canvas.update()
 
@@ -74,12 +76,20 @@ class ContainerCanvas:
             self.option_button_img = ImageTk.PhotoImage(menu_option_resized_image)
 
             start_button = Button(self.map_canvas, image=self.start_button_img, borderwidth=0,
-                                  command=lambda: [start_button.destroy(), option_button.destroy(), self.start_level01()])
+                                  command=lambda:
+                                  [start_button.destroy(), option_button.destroy(), self.start_level01()])
             start_button.place(x=340, y=160)
 
             option_button = Button(self.map_canvas, image=self.option_button_img, borderwidth=0, state=NORMAL,
                                    command=lambda: None)
             option_button.pack(side=BOTTOM, pady=180)
+
+    def main_timer_level01(self, count):
+        if self.jack.pv <= 0 or self.enemy.pv <= 0:
+            self.start_menu()
+        else:
+            self.root.after(1000, self.main_timer_level01, count + 1)
+            print("timer :", count)
 
     def update_timer(self, count: int):
         if count >= 0:
@@ -88,8 +98,8 @@ class ContainerCanvas:
             self.enemy.random_move_direction()
         self.root.after(1000, self.update_timer, count - 1)
 
-    def get_map_canvas(self):
-        return self.map_canvas
-
     def start_level01(self):
         self.enable_canvas("level01")
+
+    def start_menu(self):
+        self.enable_canvas("menu")
