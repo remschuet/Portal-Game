@@ -13,8 +13,11 @@ root.mainloop()
 
 
 """
-Timer dans le canvas
-Point de vie
-Vérifie le nbr de point de vie
-
+FAIT Timer dans le canvas
+FAIT Point de vie
+FAIT Vérifie le nbr de point de vie
+     Refactor container_canvas
+     Menu option
+     Son
+     system de level sur une certaine place 
 """
