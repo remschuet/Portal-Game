@@ -16,7 +16,6 @@ class ContainerCanvas:
         self.map_canvas = None
         self.jack = None
         self.enemy = None
-
         self.background_image_game = None
         self.background_image_menu = None
         self.start_button_img = None
@@ -26,7 +25,6 @@ class ContainerCanvas:
         self.music_option_button_img = None
 
         self.songs_manager = Songs()
-
         self.enable_canvas("menu")
 
     def enable_canvas(self, canvas_name: str):
@@ -43,9 +41,7 @@ class ContainerCanvas:
     def load_canvas_menu(self):
         self.map_canvas = Canvas(self.container)
         self.map_canvas.update()
-
         self.image_manager()
-        # music start
         self.songs_manager.play_music_menu()
 
         self.map_canvas.configure(width=self.container.winfo_width(), height=self.container.winfo_height())
@@ -83,7 +79,7 @@ class ContainerCanvas:
 
         music_button = Button(self.map_canvas, image=self.music_option_button_img, borderwidth=0,
                               command=lambda:
-                              [print("music disable")])
+                              [self.songs_manager.cancel_music()])
         music_button.pack(side=BOTTOM, pady=180)
 
     def load_canvas_level01(self):
