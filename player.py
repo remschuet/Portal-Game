@@ -1,7 +1,5 @@
 from tkinter import *
-
 from PIL import Image, ImageTk
-
 from collision_manager import Environment
 
 

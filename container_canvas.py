@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import Image, ImageTk
 from player import Player
+from scene_object import SceneObject
 from collision_manager import Environment
 from enemy import Enemy
 from songs_manager import Songs
@@ -13,9 +14,11 @@ class ContainerCanvas:
         self.container = Frame(self.root, bg="yellow")
         self.container.pack(expand=True, fill="both")
 
-        self.map_canvas = None
         self.jack = None
         self.enemy = None
+        self.box = None
+
+        self.map_canvas = None
         self.background_image_game = None
         self.background_image_menu = None
         self.start_button_img = None
@@ -37,6 +40,8 @@ class ContainerCanvas:
             self.load_canvas_option()
         elif canvas_name == "level01":
             self.load_canvas_level01()
+        elif canvas_name == "level02":
+            self.load_canvas_level02()
 
     def load_canvas_menu(self):
         self.map_canvas = Canvas(self.container)
@@ -65,7 +70,6 @@ class ContainerCanvas:
         self.map_canvas.update()
 
         self.image_manager()
-        # music start
         self.songs_manager.play_music_menu()
 
         self.map_canvas.configure(width=self.container.winfo_width(), height=self.container.winfo_height())
@@ -86,10 +90,8 @@ class ContainerCanvas:
         self.map_canvas = Canvas(self.container)
         self.map_canvas.update()
 
-        environment = Environment()
         self.image_manager()
 
-        # music stop
         self.songs_manager.stop_music()
         self.songs_manager.play_music_game()
 
@@ -97,8 +99,32 @@ class ContainerCanvas:
         self.map_canvas.pack(fill="both", expand=True)
         self.map_canvas.create_image(0, 0, image=self.background_image_game, anchor="nw")
 
+        self.create_physicals_objects()
+
+        self.main_timer_level01(1)
+        self.update_timer(1)
+
+    def load_canvas_level02(self):
+        self.map_canvas = Canvas(self.container)
+        self.map_canvas.update()
+
+        self.image_manager()
+
+        self.songs_manager.stop_music()
+        self.songs_manager.play_music_game()
+        """
+        All the code
+        """
+        self.main_timer_level01(1)
+        self.update_timer(1)
+
+    def create_physicals_objects(self):
+        environment = Environment()
+
         self.jack = Player("Jack", self.map_canvas, environment, position_x=150, position_y=150, pv=10)
         self.enemy = Enemy("enemy", self.map_canvas, environment, position_x=70, position_y=70, pv=10)
+        self.box = SceneObject("box", self.map_canvas, environment, position_x=100, position_y=100)
+        self.box.print_name_position()
 
         self.root.bind("1", self.enemy.print_position_x_y)
         self.root.bind("2", self.jack.print_position_x_y)
@@ -107,9 +133,6 @@ class ContainerCanvas:
         self.root.bind("<Right>", self.jack.move_right)
         self.root.bind("<Up>", self.jack.move_up)
         self.root.bind("<Down>", self.jack.move_down)
-
-        self.main_timer_level01(1)
-        self.update_timer(1)
 
     def image_manager(self):
         background_image_png = Image.open("background.png")
@@ -154,11 +177,14 @@ class ContainerCanvas:
             self.enemy.random_move_direction()
         self.root.after(1000, self.update_timer, count - 1)
 
-    def start_level01(self):
-        self.enable_canvas("level01")
-
     def start_menu(self):
         self.enable_canvas("menu")
 
     def start_option(self):
         self.enable_canvas("option")
+
+    def start_level01(self):
+        self.enable_canvas("level01")
+
+    def start_level_02(self):
+        self.enable_canvas("level02")
