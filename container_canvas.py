@@ -128,7 +128,7 @@ class ContainerCanvas:
         self.jack = Player("Jack", self.map_canvas, environment, position_x=150, position_y=150, pv=10)
         self.enemy = Enemy("enemy", self.map_canvas, environment, position_x=70, position_y=70, pv=10)
 
-        self.box = SceneObject("box", self.map_canvas, environment, position_x=100, position_y=100)
+        self.box = SceneObject("box", self.map_canvas, environment, position_x=300, position_y=300)
 
         self.root.bind("1", self.enemy.print_position_x_y)
         self.root.bind("2", self.jack.print_position_x_y)
@@ -139,31 +139,31 @@ class ContainerCanvas:
         self.root.bind("<Down>", self.jack.move_down)
 
     def image_manager(self):
-        background_image_png = Image.open("background.png")
+        background_image_png = Image.open("assets/background.png")
         background_resized_menu = background_image_png.resize((2000, 2000), Image.ANTIALIAS)
         self.background_image_game = ImageTk.PhotoImage(background_resized_menu)
 
-        background_image_menu = Image.open("menu.png")
+        background_image_menu = Image.open("assets/menu.png")
         background_resized_menu = background_image_menu.resize((1000, 1000), Image.ANTIALIAS)
         self.background_image_menu = ImageTk.PhotoImage(background_resized_menu)
 
-        start_image_menu = Image.open("button_start_menu.png")
+        start_image_menu = Image.open("assets/button_start_menu.png")
         menu_resized_image = start_image_menu.resize((120, 70), Image.ANTIALIAS)
         self.start_button_img = ImageTk.PhotoImage(menu_resized_image)
 
-        option_image_menu = Image.open("button_option_menu.png")
+        option_image_menu = Image.open("assets/button_option_menu.png")
         menu_option_resized_image = option_image_menu.resize((120, 70), Image.ANTIALIAS)
         self.option_button_img = ImageTk.PhotoImage(menu_option_resized_image)
 
-        option_image_option = Image.open("button_return_option.png")
+        option_image_option = Image.open("assets/button_return_option.png")
         option_option_resized_image = option_image_option.resize((120, 70), Image.ANTIALIAS)
         self.option_option_button_img = ImageTk.PhotoImage(option_option_resized_image)
 
-        music_image_option = Image.open("button_option_music.png")
+        music_image_option = Image.open("assets/button_option_music.png")
         music_option_resized_image = music_image_option.resize((120, 70), Image.ANTIALIAS)
         self.music_option_button_img = ImageTk.PhotoImage(music_option_resized_image)
 
-        background_image_option = Image.open("option.png")
+        background_image_option = Image.open("assets/option.png")
         background_resized_option = background_image_option.resize((1000, 1000), Image.ANTIALIAS)
         self.background_image_option = ImageTk.PhotoImage(background_resized_option)
 

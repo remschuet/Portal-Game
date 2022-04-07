@@ -21,4 +21,6 @@ FAIT Menu option
      Ennemi qui ne bloque pas contre un coin
 FAIT Son
      system de level sur une certaine place 
+     Faire une class image_manager
+     
 """

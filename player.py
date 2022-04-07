@@ -6,34 +6,31 @@ from physical_object import PhysicalObject
 
 class Player(PhysicalObject):
     def __init__(self, name, canvas: Canvas, environment: Environment, position_x: int, position_y: int, pv: int):
-        super().__init__(name, position_x, position_y)
+        super().__init__(name, position_x, position_y, environment)
         self.speed = 10
         self.canvas = canvas
-        self.environment = environment
         self.pv = pv
 
         self.current_direction = 0
         self.current_steps = 0
 
-        self.environment.set_position_player(self.name, self.position_x, self.position_y)
-
         prefix = str.lower(self.name)
-        player_image = Image.open(prefix + "_idle.jpg")
+        player_image = Image.open("assets\\" + prefix + "_idle.jpg")
         resized_image = player_image.resize((80, 70), Image.ANTIALIAS)
         self.player_idle = ImageTk.PhotoImage(resized_image)
         self.player_image = self.canvas.create_image(self.position_x, self.position_y,
                                                      anchor=NW, image=self.player_idle)
         print("(", self.position_x, self.position_y, ")")
 
-        player_image_left = Image.open(prefix + "_left.jpg")
+        player_image_left = Image.open("assets\\" + prefix + "_left.jpg")
         resized_image_left = player_image_left.resize((80, 70), Image.ANTIALIAS)
         self.player_left = ImageTk.PhotoImage(resized_image_left)
 
-        player_image_right = Image.open(prefix + "_right.jpg")
+        player_image_right = Image.open("assets\\" + prefix + "_right.jpg")
         resized_image_right = player_image_right.resize((80, 70), Image.ANTIALIAS)
         self.player_right = ImageTk.PhotoImage(resized_image_right)
 
-        player_image_up = Image.open(prefix + "_up.jpg")
+        player_image_up = Image.open("assets\\" + prefix + "_up.jpg")
         resized_image_up = player_image_up.resize((80, 70), Image.ANTIALIAS)
         self.player_up = ImageTk.PhotoImage(resized_image_up)
 
