@@ -5,10 +5,10 @@ class Environment:
         self.length = 70  # longueur
         self.height = 60  # hauteur
 
-        self.players = {}
+        self.physicals_objects = {}
 
     def set_position_player(self, name, position_x, position_y):
-        self.players[name] = (position_x, position_y)
+        self.physicals_objects[name] = (position_x, position_y)
         print(f" Player {name} now at x={position_x} y={position_y} )")
 
     def can_move(self, position_x: int, position_y: int, direction: str, speed: int):
@@ -36,13 +36,13 @@ class Environment:
         return position_x, position_y
 
     def is_collision_detected(self, name: str, position_x: int, position_y: int):
-        for player_name, (x, y) in self.players.items():
+        for object_name, (x, y) in self.physicals_objects.items():
 
-            if name != player_name:
+            if name != object_name:
                 if position_x + self.height >= x and \
                         position_x <= x + self.height and \
                         position_y + self.length >= y and \
                         position_y <= y + self.length:
-                    print(f" {name} en collision avec  {player_name}")
+                    print(f" {name} en collision avec  {object_name}")
                     return True
         return False

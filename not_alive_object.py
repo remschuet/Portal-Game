@@ -6,11 +6,9 @@ from physical_object import PhysicalObject
 
 class SceneObject(PhysicalObject):
     def __init__(self, name: str, canvas: Canvas, environment: Environment, position_x, position_y):
-        super().__init__(name)
+        super().__init__(name, position_x, position_y)
         self.canvas = canvas
         self.environment = environment
-        self.position_x = position_x
-        self.position_y = position_y
 
         prefix = str.lower(self.name)
 

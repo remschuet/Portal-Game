@@ -129,7 +129,6 @@ class ContainerCanvas:
         self.enemy = Enemy("enemy", self.map_canvas, environment, position_x=70, position_y=70, pv=10)
 
         self.box = SceneObject("box", self.map_canvas, environment, position_x=100, position_y=100)
-        self.box.print_name_position()
 
         self.root.bind("1", self.enemy.print_position_x_y)
         self.root.bind("2", self.jack.print_position_x_y)

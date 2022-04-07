@@ -1,16 +1,15 @@
 from tkinter import *
 from PIL import Image, ImageTk
 from environment import Environment
+from physical_object import PhysicalObject
 
 
-class Player:
+class Player(PhysicalObject):
     def __init__(self, name, canvas: Canvas, environment: Environment, position_x: int, position_y: int, pv: int):
-        self.name = name
+        super().__init__(name, position_x, position_y)
         self.speed = 10
         self.canvas = canvas
         self.environment = environment
-        self.position_x = position_x
-        self.position_y = position_y
         self.pv = pv
 
         self.current_direction = 0
