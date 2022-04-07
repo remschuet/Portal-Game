@@ -1,11 +1,12 @@
 from tkinter import *
 from PIL import Image, ImageTk
-from collision_manager import Environment
+from environment import Environment
+from physical_object import PhysicalObject
 
 
-class SceneObject:
+class SceneObject(PhysicalObject):
     def __init__(self, name: str, canvas: Canvas, environment: Environment, position_x, position_y):
-        self.name = name
+        super().__init__(name)
         self.canvas = canvas
         self.environment = environment
         self.position_x = position_x

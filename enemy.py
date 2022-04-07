@@ -1,7 +1,7 @@
 import random
 from tkinter import Canvas
 
-from collision_manager import Environment
+from environment import Environment
 from player import Player
 
 

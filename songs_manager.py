@@ -4,7 +4,7 @@ import pygame
 class Songs:
     def __init__(self):
         pygame.mixer.init()
-        self.music_enable = False
+        self.music_enable = True
 
     def stop_music(self):
         if self.music_enable:

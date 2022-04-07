@@ -1,8 +1,8 @@
 from tkinter import *
 from PIL import Image, ImageTk
 from player import Player
-from scene_object import SceneObject
-from collision_manager import Environment
+from not_alive_object import SceneObject
+from environment import Environment
 from enemy import Enemy
 from songs_manager import Songs
 
@@ -99,7 +99,7 @@ class ContainerCanvas:
         self.map_canvas.pack(fill="both", expand=True)
         self.map_canvas.create_image(0, 0, image=self.background_image_game, anchor="nw")
 
-        self.create_physicals_objects()
+        self.create_players()
 
         self.main_timer_level01(1)
         self.update_timer(1)
@@ -112,17 +112,22 @@ class ContainerCanvas:
 
         self.songs_manager.stop_music()
         self.songs_manager.play_music_game()
-        """
-        All the code
-        """
+
+        self.map_canvas.configure(width=self.container.winfo_width(), height=self.container.winfo_height())
+        self.map_canvas.pack(fill="both", expand=True)
+        self.map_canvas.create_image(0, 0, image=self.background_image_game, anchor="nw")
+
+        self.create_players()
+
         self.main_timer_level01(1)
         self.update_timer(1)
 
-    def create_physicals_objects(self):
+    def create_players(self):
         environment = Environment()
 
         self.jack = Player("Jack", self.map_canvas, environment, position_x=150, position_y=150, pv=10)
         self.enemy = Enemy("enemy", self.map_canvas, environment, position_x=70, position_y=70, pv=10)
+
         self.box = SceneObject("box", self.map_canvas, environment, position_x=100, position_y=100)
         self.box.print_name_position()
 
