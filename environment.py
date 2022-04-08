@@ -44,5 +44,7 @@ class Environment:
                         position_y + self.length >= y and \
                         position_y <= y + self.length:
                     print(f" {name} en collision avec  {object_name}")
+                    if object_name == "box":
+                        print("Contact with the box")
                     return True
         return False

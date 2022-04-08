@@ -125,10 +125,13 @@ class ContainerCanvas:
     def create_players(self):
         environment = Environment()
 
-        self.jack = Player("Jack", self.map_canvas, environment, position_x=150, position_y=150, pv=10)
-        self.enemy = Enemy("enemy", self.map_canvas, environment, position_x=70, position_y=70, pv=10)
+        self.jack = Player("Jack", self.map_canvas, environment,
+                           position_x=150, position_y=150, pv=10, height=60, length=70)
+        self.enemy = Enemy("enemy", self.map_canvas, environment,
+                           position_x=70, position_y=70, pv=10, height=60, length=70)
 
-        self.box = SceneObject("box", self.map_canvas, environment, position_x=300, position_y=300)
+        self.box = SceneObject("box", self.map_canvas, environment,
+                               position_x=300, position_y=300, height=20, length=20)
 
         self.root.bind("1", self.enemy.print_position_x_y)
         self.root.bind("2", self.jack.print_position_x_y)

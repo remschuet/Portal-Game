@@ -5,8 +5,9 @@ from physical_object import PhysicalObject
 
 
 class Player(PhysicalObject):
-    def __init__(self, name, canvas: Canvas, environment: Environment, position_x: int, position_y: int, pv: int):
-        super().__init__(name, position_x, position_y, environment)
+    def __init__(self, name, canvas: Canvas, environment: Environment,
+                 position_x: int, position_y: int, height: int, length: int, pv: int):
+        super().__init__(name, position_x, position_y, environment, height, length)
         self.speed = 10
         self.canvas = canvas
         self.pv = pv

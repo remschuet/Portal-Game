@@ -5,8 +5,9 @@ from physical_object import PhysicalObject
 
 
 class SceneObject(PhysicalObject):
-    def __init__(self, name: str, canvas: Canvas, environment: Environment, position_x, position_y):
-        super().__init__(name, position_x, position_y, environment)
+    def __init__(self, name: str, canvas: Canvas, environment: Environment,
+                 position_x, position_y, height: int, length: int):
+        super().__init__(name, position_x, position_y, environment, height, length)
         self.canvas = canvas
 
         prefix = str.lower(self.name)
