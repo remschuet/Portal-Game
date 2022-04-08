@@ -19,8 +19,3 @@ class SceneObject(PhysicalObject):
 
     def print_name_position(self):
         print(f"{self.name} ({self.position_x, self.position_y})")
-
-
-"""
-FAIT Afficher l' image en fonction de son nom
-"""
