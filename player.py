@@ -58,11 +58,20 @@ class Player(PhysicalObject):
             (self.position_x, self.position_y) = self.environment.get_next_position(
                 self.position_x, self.position_y, direction, self.speed)
             self.update_image(direction)
-            enable_move = True
 
-            # Position in dictionary for every player
             if self.environment.is_collision_detected(self.name, self.position_x, self.position_y):
                 self.pv = 0
+                enable_move = False
+            else:
+                enable_move = True
+
+            # if self.environment.is_collision_detected(self.name, self.position_x, self.position_y):
+                # dead_or_not = self.environment.collision_with_who()
+                # if dead_or_not:
+                    # self.pv = 0
+                # else:
+                    # enable_move = False
+
             # print the position of players
             self.environment.set_position_player(self.name, self.position_x, self.position_y)
 

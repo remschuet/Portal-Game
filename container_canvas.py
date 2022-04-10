@@ -14,9 +14,12 @@ class ContainerCanvas:
         self.container = Frame(self.root, bg="yellow")
         self.container.pack(expand=True, fill="both")
 
+        self.environment = None
+
         self.jack = None
         self.enemy = None
         self.box = None
+        self.tnt_box = None
 
         self.map_canvas = None
         self.background_image_game = None
@@ -123,15 +126,16 @@ class ContainerCanvas:
         self.update_timer(1)
 
     def create_players(self):
-        environment = Environment()
+        self.environment = Environment()
 
-        self.jack = Player("Jack", self.map_canvas, environment,
+        self.jack = Player("Jack", self.map_canvas, self.environment,
                            position_x=150, position_y=150, pv=10, height=60, length=70)
-        self.enemy = Enemy("enemy", self.map_canvas, environment,
+        self.enemy = Enemy("enemy", self.map_canvas, self.environment,
                            position_x=70, position_y=70, pv=10, height=60, length=70)
-
-        self.box = SceneObject("box", self.map_canvas, environment,
-                               position_x=300, position_y=300, height=20, length=20)
+        self.box = SceneObject("box", self.map_canvas, self.environment,
+                               position_x=300, position_y=300, height=60, length=70)
+        self.tnt_box = SceneObject("box_tnt", self.map_canvas, self.environment,
+                                   position_x=400, position_y=350, height=60, length=70)
 
         self.root.bind("1", self.enemy.print_position_x_y)
         self.root.bind("2", self.jack.print_position_x_y)
@@ -174,7 +178,9 @@ class ContainerCanvas:
         if self.jack.pv <= 0 or self.enemy.pv <= 0:
             self.start_menu()
         else:
-            self.root.after(1000, self.main_timer_level01, count + 1)
+            self.root.after(250, self.main_timer_level01, count + 0.25)
+
+        if count - int(count) == 0:
             print("timer :", count)
 
     def update_timer(self, count: int):

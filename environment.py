@@ -4,6 +4,7 @@ class Environment:
 
         self.length = 70  # longueur
         self.height = 60  # hauteur
+        self.object_name = None
 
         self.physicals_objects = {}
 
@@ -36,15 +37,22 @@ class Environment:
         return position_x, position_y
 
     def is_collision_detected(self, name: str, position_x: int, position_y: int):
-        for object_name, (x, y) in self.physicals_objects.items():
+        for self.object_name, (x, y) in self.physicals_objects.items():
 
-            if name != object_name:
+            if name != self.object_name:
                 if position_x + self.height >= x and \
                         position_x <= x + self.height and \
                         position_y + self.length >= y and \
                         position_y <= y + self.length:
-                    print(f" {name} en collision avec  {object_name}")
-                    if object_name == "box":
+                    print(f" {name} en collision avec  {self.object_name}")
+                    if self.object_name == "box":
                         print("Contact with the box")
                     return True
         return False
+
+    def collision_with_who(self):
+        if self.object_name == "enemy" or self.object_name == "Jack":
+            return True
+        elif self.object_name == "box":
+            collision = "box"
+            return collision

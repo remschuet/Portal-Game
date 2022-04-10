@@ -13,7 +13,7 @@ class SceneObject(PhysicalObject):
         prefix = str.lower(self.name)
 
         object_image = Image.open("assets\\" + prefix + "_object.png")
-        resized_image = object_image.resize((50, 40), Image.ANTIALIAS)
+        resized_image = object_image.resize((length, height), Image.ANTIALIAS)
         self.object_idle = ImageTk.PhotoImage(resized_image)
         self.player_image = self.canvas.create_image(self.position_x, self.position_y,
                                                      anchor=NW, image=self.object_idle)
