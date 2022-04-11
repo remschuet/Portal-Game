@@ -176,6 +176,7 @@ class ContainerCanvas:
 
     def main_timer_level01(self, count):
         if self.jack.pv <= 0 or self.enemy.pv <= 0:
+            self.songs_manager.play_music_contact()
             self.start_menu()
         else:
             self.root.after(250, self.main_timer_level01, count + 0.25)
