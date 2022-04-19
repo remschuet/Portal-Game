@@ -44,17 +44,21 @@ class Environment:
         item = self.is_collision_detected(name, position_x, position_y)
         if item:
             item_x, item_y = self.physicals_objects[item]
+            shift = 1
             if direction == "right":
-                position_x = item_x - self.height
+                position_x = item_x - (self.height + shift)
             elif direction == "left":
-                position_x = item_x + self.height
+                position_x = item_x + (self.height + shift)
             elif direction == "up":
-                position_y = item_y + self.length
+                position_y = item_y + (self.length + shift)
             elif direction == "down":
-                position_y = item_y - self.length
+                position_y = item_y - (self.length + shift)
         return position_x, position_y
 
     def is_collision_detected(self, name: str, position_x: int, position_y: int) -> str:
+        """
+        Detect avec quel objet on est en collision sinon retourne None
+        """
         for self.object_name, (x, y) in self.physicals_objects.items():
             if name != self.object_name:
                 if position_x + self.height >= x and \

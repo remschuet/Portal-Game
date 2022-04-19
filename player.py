@@ -8,12 +8,11 @@ from physical_object import PhysicalObject
 
 class Player(PhysicalObject):
     def __init__(self, name, canvas: Canvas, environment: Environment,
-                 position_x: int, position_y: int, height: int, length: int, pv: int, last_move: str):
+                 position_x: int, position_y: int, height: int, length: int, pv: int):
         super().__init__(name, position_x, position_y, environment, height, length)
         self.speed = 10
         self.canvas = canvas
         self.pv = pv
-        self.last_move = None
 
         self.current_direction = 0
         self.current_steps = 0
