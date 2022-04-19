@@ -5,6 +5,9 @@ class Environment:
         self.height = 80  # hauteur
         self.object_name = None
 
+        # Pas du tout efficace
+        self.jack_pv = 10
+
         self.physicals_objects = {}
 
     def set_position_player(self, name, position_x, position_y):
@@ -65,14 +68,11 @@ class Environment:
                         position_x <= x + self.height and \
                         position_y + self.length >= y and \
                         position_y <= y + self.length:
+                    # Return name of the object in collision not the player
+                    self.manage_death()
                     return self.object_name
         return None
 
-    def collision_with_who(self):
-        if self.object_name == "enemy" or self.object_name == "Jack":
-            return True
-        if self.object_name == "box":
-            collision = "box"
-            return collision
-        else:
-            return
+    def manage_death(self):
+        if self.object_name == "box_tnt":
+            self.jack_pv = 0

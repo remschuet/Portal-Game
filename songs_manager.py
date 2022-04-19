@@ -2,6 +2,7 @@ import pygame
 
 
 class Songs:
+
     def __init__(self):
         pygame.mixer.init()
         self.music_enable = False

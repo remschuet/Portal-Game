@@ -16,10 +16,10 @@ root.mainloop()
      Ennemi qui ne bloque pas contre un coin
      Vérifier sur qui est le contact dans Environment
      
-     Modifier X Y pour la même valeur
+FAIT Modifier X Y pour la même valeur
      Créer une class qui s occupe de la création des images
     
-    Length et width inutile, ils sont écrasés par des valeurs dans environnement.
+     Length et width inutile, ils sont écrasés par des valeurs dans environnement.
     
 FAIT Collision 
 FAIT Son

@@ -65,17 +65,18 @@ class Player(PhysicalObject):
             self.environment.set_position_player(self.name, self.position_x, self.position_y)
             enable_move = True
 
-            item = self.environment.is_collision_detected(self.name, self.position_x, self.position_y)
+            # Ne comprends pas si c'est utile
+            # item = self.environment.is_collision_detected(self.name, self.position_x, self.position_y)
             print(f" {self.name} move to {self.position_x} {self.position_y}!")
-            if item:
-                print(f" {self.name} en collision avec {item}!")
-                #self.pv = 0
 
         else:
             print(f"{self.name} cannot move")
             if not isinstance(self, Player):
                 print(f"{self.name} ne peut pas bouger!")
         return enable_move
+
+    def death(self):
+        self.pv = 0
 
     def move_right(self, _):
         if self.move("right"):

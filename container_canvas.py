@@ -176,11 +176,11 @@ class ContainerCanvas:
         self.background_image_option = ImageTk.PhotoImage(background_resized_option)
 
     def main_timer_level01(self, count):
-        if self.jack.pv <= 0 or (self.enemy and self.enemy.pv <= 0):
+        if self.jack.pv <= 0 or self.environment.jack_pv <= 0:
             self.songs_manager.play_music_contact()
             self.start_menu()
         else:
-            self.root.after(25000, self.main_timer_level01, count + 0.25)
+            self.root.after(250, self.main_timer_level01, count + 0.25)
 
         if count - int(count) == 0:
             print("timer :", count)
