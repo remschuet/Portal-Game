@@ -19,6 +19,7 @@ root.mainloop()
      Modifier X Y pour la même valeur
      Créer une class qui s occupe de la création des images
     
+    Length et width inutile, ils sont écrasés par des valeurs dans environnement.
     
 FAIT Collision 
 FAIT Son

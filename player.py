@@ -19,22 +19,22 @@ class Player(PhysicalObject):
 
         prefix = str.lower(self.name)
         player_image = Image.open("assets\\" + prefix + "_idle.jpg")
-        resized_image = player_image.resize((80, 70), Image.ANTIALIAS)
+        resized_image = player_image.resize((80, 80), Image.ANTIALIAS)
         self.player_idle = ImageTk.PhotoImage(resized_image)
         self.player_image = self.canvas.create_image(self.position_x, self.position_y,
                                                      anchor=NW, image=self.player_idle)
         print("(", self.position_x, self.position_y, ")")
 
         player_image_left = Image.open("assets\\" + prefix + "_left.jpg")
-        resized_image_left = player_image_left.resize((80, 70), Image.ANTIALIAS)
+        resized_image_left = player_image_left.resize((80, 80), Image.ANTIALIAS)
         self.player_left = ImageTk.PhotoImage(resized_image_left)
 
         player_image_right = Image.open("assets\\" + prefix + "_right.jpg")
-        resized_image_right = player_image_right.resize((80, 70), Image.ANTIALIAS)
+        resized_image_right = player_image_right.resize((80, 80), Image.ANTIALIAS)
         self.player_right = ImageTk.PhotoImage(resized_image_right)
 
         player_image_up = Image.open("assets\\" + prefix + "_up.jpg")
-        resized_image_up = player_image_up.resize((80, 70), Image.ANTIALIAS)
+        resized_image_up = player_image_up.resize((80, 80), Image.ANTIALIAS)
         self.player_up = ImageTk.PhotoImage(resized_image_up)
 
     def print_position_x_y(self, _):

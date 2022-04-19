@@ -1,8 +1,8 @@
 class Environment:
     def __init__(self):
 
-        self.length = 70  # longueur
-        self.height = 60  # hauteur
+        self.length = 80  # longueur
+        self.height = 80  # hauteur
         self.object_name = None
 
         self.physicals_objects = {}
