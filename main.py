@@ -13,13 +13,19 @@ root.mainloop()
 
 
 """
+     Ennemi qui ne bloque pas contre un coin
+     Vérifier sur qui est le contact dans Environment
+     
+     Modifier X Y pour la même valeur
+     Créer une class qui s occupe de la création des images
+    
+    
+FAIT Collision 
+FAIT Son
 FAIT Timer dans le canvas
 FAIT Point de vie
 FAIT Vérifie le nbr de point de vie
 FAIT Refactor container_canvas
 FAIT Menu option
-     Ennemi qui ne bloque pas contre un coin
-FAIT Son
-     Vérifier sur qui est le contact dans Environment
-     Faire une class image_manager
+     
 """
