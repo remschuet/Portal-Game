@@ -1,17 +1,19 @@
+from physical_object import PhysicalObject
+
+
 class Environment:
     def __init__(self):
 
         self.length = 80  # longueur
         self.height = 80  # hauteur
         self.object_name = None
-
         # Pas du tout efficace
         self.jack_pv = 10
 
-        self.physicals_objects = {}
+        self.physicals_objects_list = {}
 
     def set_position_player(self, name, position_x, position_y):
-        self.physicals_objects[name] = (position_x, position_y)
+        self.physicals_objects_list[name] = (position_x, position_y)
         print(f" Player {name} now at x={position_x} y={position_y} )")
 
     def can_move(self, name: str, position_x: int, position_y: int, direction: str, speed: int):
@@ -46,7 +48,7 @@ class Environment:
     def get_next_position_against_items(self, name: str, position_x: int, position_y: int, direction: str) -> (int, int):
         item = self.is_collision_detected(name, position_x, position_y)
         if item:
-            item_x, item_y = self.physicals_objects[item]
+            item_x, item_y = self.physicals_objects_list[item]
             shift = 1
             if direction == "right":
                 position_x = item_x - (self.height + shift)
@@ -62,7 +64,7 @@ class Environment:
         """
         Detect avec quel objet on est en collision sinon retourne None
         """
-        for self.object_name, (x, y) in self.physicals_objects.items():
+        for self.object_name, (x, y) in self.physicals_objects_list.items():
             if name != self.object_name:
                 if position_x + self.height >= x and \
                         position_x <= x + self.height and \
@@ -76,3 +78,4 @@ class Environment:
     def manage_death(self):
         if self.object_name == "box_tnt":
             self.jack_pv = 0
+

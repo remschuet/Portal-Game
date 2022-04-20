@@ -13,14 +13,18 @@ root.mainloop()
 
 
 """
+     Mettre dans chacun des class player et not alive object la ligne de code
+     Environnement s occupe de dire à physical object de decremanter les point de vies
+
      Ennemi qui ne bloque pas contre un coin
      Vérifier sur qui est le contact dans Environment
      
-FAIT Modifier X Y pour la même valeur
      Créer une class qui s occupe de la création des images
+     Créer une classe qui s occupe des l initialisation des joueurs et items
     
      Length et width inutile, ils sont écrasés par des valeurs dans environnement.
-    
+
+FAIT Modifier X Y pour la même valeur image et box collider    
 FAIT Collision 
 FAIT Son
 FAIT Timer dans le canvas

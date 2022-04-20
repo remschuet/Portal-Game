@@ -9,13 +9,13 @@ from physical_object import PhysicalObject
 class Player(PhysicalObject):
     def __init__(self, name, canvas: Canvas, environment: Environment,
                  position_x: int, position_y: int, height: int, length: int, pv: int):
-        super().__init__(name, position_x, position_y, environment, height, length)
+        super().__init__(name, position_x, position_y, height, length, pv)
         self.speed = 10
         self.canvas = canvas
-        self.pv = pv
 
         self.current_direction = 0
         self.current_steps = 0
+        self.environment = environment
 
         prefix = str.lower(self.name)
         player_image = Image.open("assets\\" + prefix + "_idle.jpg")
@@ -36,6 +36,8 @@ class Player(PhysicalObject):
         player_image_up = Image.open("assets\\" + prefix + "_up.jpg")
         resized_image_up = player_image_up.resize((80, 80), Image.ANTIALIAS)
         self.player_up = ImageTk.PhotoImage(resized_image_up)
+
+        self.environment.set_position_player(self.name, self.position_x, self.position_y)
 
     def print_position_x_y(self, _):
         print("(", self.name, ":", self.position_x, self.position_y, ")")

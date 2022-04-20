@@ -135,9 +135,9 @@ class ContainerCanvas:
                            position_x=70, position_y=70, pv=10, height=70, length=70)
         self.root.bind("1", self.enemy.print_position_x_y)
         self.box = SceneObject("box", self.map_canvas, self.environment,
-                               position_x=300, position_y=300, height=70, length=70)
+                               position_x=300, position_y=300, pv=100, height=70, length=70)
         self.tnt_box = SceneObject("box_tnt", self.map_canvas, self.environment,
-                                   position_x=400, position_y=350, height=70, length=70)
+                                   position_x=400, position_y=350, pv=100, height=70, length=70)
 
         self.root.bind("2", self.jack.print_position_x_y)
 
