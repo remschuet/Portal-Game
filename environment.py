@@ -7,10 +7,13 @@ class Environment:
         self.length = 80  # longueur
         self.height = 80  # hauteur
         self.object_name = None
+
+        self.key_found = False
         # Pas du tout efficace
         self.jack_pv = 10
 
         self.physicals_objects_list = {}
+        print(type(self.physicals_objects_list))
 
     def set_position_player(self, name, position_x, position_y):
         self.physicals_objects_list[name] = (position_x, position_y)
@@ -71,11 +74,12 @@ class Environment:
                         position_y + self.length >= y and \
                         position_y <= y + self.length:
                     # Return name of the object in collision not the player
-                    self.manage_death()
+                    self.action_after_collision()
                     return self.object_name
         return None
 
-    def manage_death(self):
+    def action_after_collision(self):
         if self.object_name == "box_tnt":
             self.jack_pv = 0
-
+        elif self.object_name == "box_portal":
+            self.key_found = True
