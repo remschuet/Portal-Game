@@ -13,17 +13,21 @@ root.mainloop()
 
 
 """
-     Mettre dans chacun des class player et not alive object la ligne de code
+PAPA
+     Environnement ligne 86
+     Physical Object ligne 10
+
      Environnement s occupe de dire à physical object de decremanter les point de vies
 
      Ennemi qui ne bloque pas contre un coin
-     Vérifier sur qui est le contact dans Environment
      
      Créer une class qui s occupe de la création des images
      Créer une classe qui s occupe des l initialisation des joueurs et items
     
      Length et width inutile, ils sont écrasés par des valeurs dans environnement.
-
+     
+FAIT Mettre dans chacun des class player et not alive object la ligne de code
+FAIT Vérifier sur qui est le contact dans Environment
 FAIT Modifier X Y pour la même valeur image et box collider    
 FAIT Collision 
 FAIT Son

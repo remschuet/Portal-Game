@@ -7,5 +7,11 @@ class PhysicalObject:
         self.length = length
         self.pv = pv
 
-    def death(self):
-        self.pv = 0
+        self.physical_object_list = []                           # Pourquoi ils ne sont pas tous ajouté à chaque fois ?
+        self.physical_object_list.append(self.name)
+        print(self.physical_object_list)
+
+    def death(self, name):
+        # Need to retrieve the player
+        print(f"{name} need to died")
+        # self.pv = 0

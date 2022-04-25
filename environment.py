@@ -12,6 +12,8 @@ class Environment:
         # Pas du tout efficace
         self.jack_pv = 10
 
+        self.physicals_objects = PhysicalObject
+
         self.physicals_objects_list = {}
         print(type(self.physicals_objects_list))
 
@@ -74,12 +76,13 @@ class Environment:
                         position_y + self.length >= y and \
                         position_y <= y + self.length:
                     # Return name of the object in collision not the player
-                    self.action_after_collision()
+                    self.action_after_collision(name)
                     return self.object_name
         return None
 
-    def action_after_collision(self):
+    def action_after_collision(self, name):
         if self.object_name == "box_tnt":
-            self.jack_pv = 0
+            # self.jack_pv = 0
+            self.physicals_objects.death(None, name=name)                                      # Pas claire pk il est gris??....
         elif self.object_name == "box_portal":
             self.key_found = True

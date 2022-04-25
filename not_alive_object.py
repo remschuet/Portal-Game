@@ -7,12 +7,13 @@ from physical_object import PhysicalObject
 class SceneObject(PhysicalObject):
 
     def __init__(self, name: str, canvas: Canvas, environment: Environment,
-                 position_x, position_y, height: int, length: int, pv: int):
+                 position_x, position_y, height: int, length: int, pv: int, photo_name: str):
         super().__init__(name, position_x, position_y, height, length, pv)
         self.canvas = canvas
         self.environment = environment
+        self.photo_name = photo_name
 
-        prefix = str.lower(self.name)
+        prefix = str.lower(self.photo_name)
 
         object_image = Image.open("assets\\" + prefix + "_object.png")
         resized_image = object_image.resize((80, 80), Image.ANTIALIAS)
