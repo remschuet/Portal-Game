@@ -11,7 +11,7 @@ class PhysicalObject:
         self.physical_object_list.append(self.name)
         print(self.physical_object_list)
 
-    def death(self, name):
+    def death(self):
         # Need to retrieve the player
-        print(f"{name} need to died")
+        print("need to died")
         # self.pv = 0

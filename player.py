@@ -57,11 +57,9 @@ class Player(PhysicalObject):
 
     def move(self, direction: str) -> bool:
         enable_move = False
-        if self.environment.can_move(self.name, self.position_x, self.position_y, direction, self.speed):
+        if self.environment.can_move(self, direction, self.speed):
             # update player position
-            (self.position_x, self.position_y) = self.environment.get_next_position(self.name,
-                                                                                    self.position_x,
-                                                                                    self.position_y, direction,
+            (self.position_x, self.position_y) = self.environment.get_next_position(self, direction,
                                                                                     self.speed)
             # update current player position in environnement
             self.environment.set_position_player(self.name, self.position_x, self.position_y)

@@ -3,7 +3,6 @@ from physical_object import PhysicalObject
 
 class Environment:
     def __init__(self):
-
         self.length = 80  # longueur
         self.height = 80  # hauteur
         self.object_name = None
@@ -12,8 +11,6 @@ class Environment:
         # Pas du tout efficace
         self.jack_pv = 10
 
-        self.physicals_objects = PhysicalObject
-
         self.physicals_objects_list = {}
         print(type(self.physicals_objects_list))
 
@@ -21,9 +18,9 @@ class Environment:
         self.physicals_objects_list[name] = (position_x, position_y)
         print(f" Player {name} now at x={position_x} y={position_y} )")
 
-    def can_move(self, name: str, position_x: int, position_y: int, direction: str, speed: int):
-        return (position_x, position_y) != self.get_next_position(
-            name, position_x, position_y, direction, speed)
+    def can_move(self, object, direction: str, speed: int):
+        return (object.position_x, object.position_y) != self.get_next_position(
+            object, direction, speed)
 
     def get_next_theorical_position(self, position_x: int, position_y: int, direction: str, speed: int) \
             -> (int, int):
@@ -37,9 +34,9 @@ class Environment:
             position_y += speed
         return position_x, position_y
 
-    def get_next_position(self, name: str, position_x: int, position_y: int, direction: str, speed: int) \
+    def get_next_position(self, physical_element: PhysicalObject, direction: str, speed: int) \
             -> (int, int):
-        futur_x, futur_y = self.get_next_theorical_position(position_x, position_y, direction, speed)
+        futur_x, futur_y = self.get_next_theorical_position(physical_element.position_x, physical_element.position_y, direction, speed)
         if futur_x > 710:
             futur_x = 710
         elif futur_x < 0:
@@ -48,22 +45,23 @@ class Environment:
             futur_y = 0
         elif futur_y > 420:
             futur_y = 420
-        return self.get_next_position_against_items(name, futur_x, futur_y, direction)
+        return self.get_next_position_against_items(physical_element, futur_x, futur_y, direction)
 
-    def get_next_position_against_items(self, name: str, position_x: int, position_y: int, direction: str) -> (int, int):
-        item = self.is_collision_detected(name, position_x, position_y)
-        if item:
-            item_x, item_y = self.physicals_objects_list[item]
+    def get_next_position_against_items(self, physical_element: PhysicalObject, futur_position_x: int, futur_position_y: int, direction: str) -> (int, int):
+        object_collision_name = self.is_collision_detected(physical_element.name, futur_position_x, futur_position_y)
+        if object_collision_name:
+            self.action_after_collision(physical_element, object_collision_name)
+            item_x, item_y = self.physicals_objects_list[object_collision_name]
             shift = 1
             if direction == "right":
-                position_x = item_x - (self.height + shift)
+                futur_position_x = item_x - (self.height + shift)
             elif direction == "left":
-                position_x = item_x + (self.height + shift)
+                futur_position_x = item_x + (self.height + shift)
             elif direction == "up":
-                position_y = item_y + (self.length + shift)
+                futur_position_y = item_y + (self.length + shift)
             elif direction == "down":
-                position_y = item_y - (self.length + shift)
-        return position_x, position_y
+                futur_position_y = item_y - (self.length + shift)
+        return futur_position_x, futur_position_y
 
     def is_collision_detected(self, name: str, position_x: int, position_y: int) -> str:
         """
@@ -76,13 +74,12 @@ class Environment:
                         position_y + self.length >= y and \
                         position_y <= y + self.length:
                     # Return name of the object in collision not the player
-                    self.action_after_collision(name)
                     return self.object_name
         return None
 
-    def action_after_collision(self, name):
-        if self.object_name == "box_tnt":
+    def action_after_collision(self, physical_element: PhysicalObject, object_collision_name: str):
+        if object_collision_name == "box_tnt":
             # self.jack_pv = 0
-            self.physicals_objects.death(None, name=name)                                      # Pas claire pk il est gris??....
-        elif self.object_name == "box_portal":
+            physical_element.death()                                      # Pas claire pk il est gris??....
+        elif object_collision_name == "box_portal":
             self.key_found = True
