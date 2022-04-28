@@ -23,6 +23,7 @@ root.mainloop()
 
 FAIT
     27 avril 
+    FAIT système de niveau dans init_object
     FAIT Créer init_object et créer les objects par cette classe   
     FAIT Environnement s occupe de dire à physical object de décrémenter les point de vies
     Avant

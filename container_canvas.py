@@ -42,8 +42,11 @@ class ContainerCanvas:
         self.songs_manager = Songs()
         self.enable_canvas("menu")
 
-    def initialize_object_level_01(self, init: InitObject):
-        init.level_01(self.map_canvas, self.environment)
+    def initialize_object_level_01(self, init: InitObject, level: int):
+        if level == 1:
+            init.level_01(self.map_canvas, self.environment)
+        elif level == 2:
+            init.level_02(self.map_canvas, self.environment)
 
     def enable_canvas(self, canvas_name: str):
         if self.map_canvas:
@@ -122,7 +125,7 @@ class ContainerCanvas:
         self.main_timer_level01(1)
         self.update_timer(1)
 
-        self.initialize_object_level_01(self.initialize_object_scene)
+        self.initialize_object_level_01(self.initialize_object_scene, 1)
 
     def load_canvas_level02(self):
         self.map_canvas = Canvas(self.container)
@@ -145,7 +148,7 @@ class ContainerCanvas:
         self.main_timer_level01(1)
         self.update_timer(1)
 
-        self.initialize_object_level_01(self.initialize_object_scene)
+        self.initialize_object_level_01(self.initialize_object_scene, 2)
 
     def create_players(self):
         self.environment = Environment()
