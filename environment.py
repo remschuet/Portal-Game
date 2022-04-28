@@ -8,8 +8,6 @@ class Environment:
         self.object_name = None
 
         self.key_found = False
-        # Pas du tout efficace
-        self.jack_pv = 10
 
         self.physicals_objects_list = {}
         print(type(self.physicals_objects_list))
@@ -79,7 +77,6 @@ class Environment:
 
     def action_after_collision(self, physical_element: PhysicalObject, object_collision_name: str):
         if object_collision_name == "box_tnt":
-            # self.jack_pv = 0
-            physical_element.death()                                      # Pas claire pk il est gris??....
+            physical_element.death()
         elif object_collision_name == "box_portal":
             self.key_found = True

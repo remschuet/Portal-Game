@@ -5,7 +5,7 @@ from not_alive_object import SceneObject
 from environment import Environment
 from enemy import Enemy
 from songs_manager import Songs
-from init_physical_object import *
+from init_physical_object import InitObject
 
 
 class ContainerCanvas:
@@ -18,7 +18,7 @@ class ContainerCanvas:
 
         self.environment = None
 
-        self.create_object = None
+        # self.create_object = None
         self.jack = None
         self.enemy = None
         self.box01 = None
@@ -37,8 +37,13 @@ class ContainerCanvas:
         self.name_level01 = None
         self.name_level02 = None
 
+        self.initialize_object_scene = InitObject()
+
         self.songs_manager = Songs()
         self.enable_canvas("menu")
+
+    def initialize_object_level_01(self, init: InitObject):
+        init.level_01(self.map_canvas, self.environment)
 
     def enable_canvas(self, canvas_name: str):
         if self.map_canvas:
@@ -112,10 +117,12 @@ class ContainerCanvas:
         name_level = Label(self.map_canvas, image=self.name_level01)
         name_level.place(x=310, y=0)
 
-        self.create_players_and_object()
+        self.create_players()
 
         self.main_timer_level01(1)
         self.update_timer(1)
+
+        self.initialize_object_level_01(self.initialize_object_scene)
 
     def load_canvas_level02(self):
         self.map_canvas = Canvas(self.container)
@@ -133,35 +140,23 @@ class ContainerCanvas:
         name_level = Label(self.map_canvas, image=self.name_level02)
         name_level.place(x=310, y=0)
 
-        self.create_players_and_object()
+        self.create_players()
 
         self.main_timer_level01(1)
         self.update_timer(1)
 
-    def create_players_and_object(self):
+        self.initialize_object_level_01(self.initialize_object_scene)
+
+    def create_players(self):
         self.environment = Environment()
-        # self.create_object = InitObject.bob
-        # InitObject.bob(None)
 
         self.jack = Player("Jack", self.map_canvas, self.environment,
                            position_x=150, position_y=150, pv=10, height=70, length=70)
 
         self.enemy = Enemy("enemy", self.map_canvas, self.environment,
                            position_x=70, position_y=70, pv=10, height=70, length=70)
+
         self.root.bind("1", self.enemy.print_position_x_y)
-
-        self.box01 = SceneObject("box01", self.map_canvas, self.environment,
-                                 position_x=300, position_y=300, pv=100, height=70, length=70, photo_name="box")
-
-        self.box02 = SceneObject("box02", self.map_canvas, self.environment,  # Same thing for name and image
-                                 position_x=400, position_y=100, pv=100, height=70, length=70, photo_name="box")
-
-        self.tnt_box = SceneObject("box_tnt", self.map_canvas, self.environment,
-                                   position_x=400, position_y=350, pv=100, height=70, length=70, photo_name="box_tnt")
-
-        self.portal_box = SceneObject("box_portal", self.map_canvas, self.environment,
-                                      position_x=600, position_y=410, pv=100, height=70, length=70, photo_name="box_portal")
-
         self.root.bind("2", self.jack.print_position_x_y)
 
         self.root.bind("<Left>", self.jack.move_left)
@@ -207,7 +202,7 @@ class ContainerCanvas:
         self.name_level02 = ImageTk.PhotoImage(name_level02_resized)
 
     def main_timer_level01(self, count):
-        if self.jack.pv <= 0 or self.environment.jack_pv <= 0:
+        if self.jack.pv <= 0:
             self.songs_manager.play_music_contact()
             self.start_menu()
         elif self.environment.key_found:
