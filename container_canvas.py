@@ -28,6 +28,7 @@ class ContainerCanvas:
 
         self.map_canvas = None
         self.background_image_game = None
+        self.background_image_game_02 = None
         self.background_image_menu = None
         self.start_button_img = None
         self.option_button_img = None
@@ -42,7 +43,7 @@ class ContainerCanvas:
         self.songs_manager = Songs()
         self.enable_canvas("menu")
 
-    def initialize_object_level_01(self, init: InitObject, level: int):
+    def initialize_object_level(self, init: InitObject, level: int):
         if level == 1:
             init.level_01(self.map_canvas, self.environment)
         elif level == 2:
@@ -125,7 +126,7 @@ class ContainerCanvas:
         self.main_timer_level01(1)
         self.update_timer(1)
 
-        self.initialize_object_level_01(self.initialize_object_scene, 1)
+        self.initialize_object_level(self.initialize_object_scene, 1)
 
     def load_canvas_level02(self):
         self.map_canvas = Canvas(self.container)
@@ -138,7 +139,7 @@ class ContainerCanvas:
 
         self.map_canvas.configure(width=self.container.winfo_width(), height=self.container.winfo_height())
         self.map_canvas.pack(fill="both", expand=True)
-        self.map_canvas.create_image(0, 0, image=self.background_image_game, anchor="nw")
+        self.map_canvas.create_image(0, 0, image=self.background_image_game_02, anchor="nw")
 
         name_level = Label(self.map_canvas, image=self.name_level02)
         name_level.place(x=310, y=0)
@@ -148,7 +149,7 @@ class ContainerCanvas:
         self.main_timer_level01(1)
         self.update_timer(1)
 
-        self.initialize_object_level_01(self.initialize_object_scene, 2)
+        self.initialize_object_level(self.initialize_object_scene, 2)
 
     def create_players(self):
         self.environment = Environment()
@@ -168,9 +169,13 @@ class ContainerCanvas:
         self.root.bind("<Down>", self.jack.move_down)
 
     def image_manager(self):
-        background_image_png = Image.open("assets/background.png")
-        background_resized_menu = background_image_png.resize((2000, 2000), Image.ANTIALIAS)
+        background_image_png = Image.open("assets/background_level01.png")
+        background_resized_menu = background_image_png.resize((800, 500), Image.ANTIALIAS)
         self.background_image_game = ImageTk.PhotoImage(background_resized_menu)
+
+        background_image_png_02 = Image.open("assets/background_level02.png")
+        background_resized_menu_02 = background_image_png_02.resize((800, 500), Image.ANTIALIAS)
+        self.background_image_game_02 = ImageTk.PhotoImage(background_resized_menu_02)
 
         background_image_menu = Image.open("assets/menu.png")
         background_resized_menu = background_image_menu.resize((1000, 1000), Image.ANTIALIAS)
@@ -206,6 +211,8 @@ class ContainerCanvas:
 
     def main_timer_level01(self, count):
         if self.jack.pv <= 0:
+            self.jack = None
+            self.enemy = None
             self.songs_manager.play_music_contact()
             self.start_menu()
         elif self.environment.key_found:
@@ -219,9 +226,10 @@ class ContainerCanvas:
 
     def update_timer(self, count: int):
         if count >= 0:
-            print(count)
-        else:
-            self.enemy.random_move_direction()
+            print(count, "update timer")
+        elif count < 0:
+            if self.enemy is not None:
+                self.enemy.random_move_direction()
         self.root.after(1000, self.update_timer, count - 1)
 
     def start_menu(self):
