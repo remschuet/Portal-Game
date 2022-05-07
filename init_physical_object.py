@@ -7,8 +7,8 @@ class InitObject:
         self.environment = None
 
         self.box01 = None
-
         self.box02 = None
+        self.box03 = None
         self.tnt_box = None
         self.portal_box = None
 
